@@ -6,7 +6,7 @@ import {imageUrlFor} from '../lib/image-url'
 import BlockContent from './block-content'
 import Container from './container'
 import RoleList from './role-list'
-import Masonry from 'react-masonry-component';
+
 
 import styles from './project.module.css'
 
@@ -33,13 +33,15 @@ function Project (props) {
             <h1 className={styles.title}>{title}</h1>
             {_rawBody && <BlockContent blocks={_rawBody || []} />}
             {images && images.length > 0 && (
-              <ul>
+              <ul className={styles.grid}>
                 {images.map(image => (
-                  <img
-                    src={imageUrlFor(buildImageObj(image))
-                      .width(600)
-                      .url()}
-                  />
+                  <li key={image._id}>
+                    <img
+                      src={imageUrlFor(buildImageObj(image))
+                        .width(400)
+                        .url()}
+                    />
+                  </li>
                 ))}
               </ul>
             )}
