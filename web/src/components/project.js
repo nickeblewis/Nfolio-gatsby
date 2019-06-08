@@ -10,7 +10,7 @@ import RoleList from './role-list'
 import styles from './project.module.css'
 
 function Project (props) {
-  const {_rawBody, title, categories, mainImage, members, publishedAt, relatedProjects} = props
+  const {_rawBody, title, categories, mainImage, members, publishedAt, relatedProjects, images} = props
   return (
     <article className={styles.root}>
       {props.mainImage && mainImage.asset && (
@@ -30,6 +30,17 @@ function Project (props) {
           <div className={styles.mainContent}>
             <h1 className={styles.title}>{title}</h1>
             {_rawBody && <BlockContent blocks={_rawBody || []} />}
+            {images && images.length > 0 && (
+              <ul>
+                {images.map(image => (
+                  <img
+                    src={imageUrlFor(buildImageObj(image))
+                      .width(600)
+                      .url()}
+                  />
+                ))}
+              </ul>
+            )}
           </div>
           <aside className={styles.metaContent}>
             {publishedAt && (
@@ -50,6 +61,7 @@ function Project (props) {
                 </ul>
               </div>
             )}
+            
             {relatedProjects && relatedProjects.length > 0 && (
               <div className={styles.relatedProjects}>
                 <h3 className={styles.relatedProjectsHeadline}>Related projects</h3>

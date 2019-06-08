@@ -68,6 +68,19 @@ export default {
       title: 'Related projects',
       type: 'array',
       of: [{type: 'reference', to: {type: 'project'}}]
+    },
+    {
+      name: 'images',
+      title: 'Images',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true
+          }
+        }
+      ]
     }
   ],
   preview: {
