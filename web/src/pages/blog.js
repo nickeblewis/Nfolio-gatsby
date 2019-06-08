@@ -2,7 +2,7 @@ import React from 'react'
 import {graphql} from 'gatsby'
 import Container from '../components/container'
 import GraphQLErrorList from '../components/graphql-error-list'
-import ProjectPreviewGrid from '../components/project-preview-grid'
+import BlogPreviewGrid from '../components/blog-preview-grid'
 import SEO from '../components/seo'
 import Layout from '../containers/layout'
 import {mapEdgesToNodes, filterOutDocsWithoutSlugs} from '../lib/helpers'
@@ -10,8 +10,8 @@ import {mapEdgesToNodes, filterOutDocsWithoutSlugs} from '../lib/helpers'
 import {responsiveTitle1} from '../components/typography.module.css'
 
 export const query = graphql`
-  query ArchivePageQuery {
-    projects: allSanityProject(
+  query BlogPageQuery {
+    blogs: allSanityPost(
       limit: 12
       sort: {fields: [publishedAt], order: DESC}
       filter: {slug: {current: {ne: null}}, publishedAt: {ne: null}}
@@ -19,6 +19,7 @@ export const query = graphql`
       edges {
         node {
           id
+          publishedAt
           mainImage {
             asset {
               _id
@@ -36,7 +37,7 @@ export const query = graphql`
   }
 `
 
-const ArchivePage = props => {
+const BlogPage = props => {
   const {data, errors} = props
   if (errors) {
     return (
@@ -45,17 +46,17 @@ const ArchivePage = props => {
       </Layout>
     )
   }
-  const projectNodes =
-    data && data.projects && mapEdgesToNodes(data.projects).filter(filterOutDocsWithoutSlugs)
+  const blogNodes =
+    data && data.blogs && mapEdgesToNodes(data.blogs).filter(filterOutDocsWithoutSlugs)
   return (
     <Layout>
       <SEO title='Galleries' />
       <Container>
-        <h1 className={responsiveTitle1}>Projects</h1>
-        {projectNodes && projectNodes.length > 0 && <ProjectPreviewGrid nodes={projectNodes} />}
+        <h1 className={responsiveTitle1}>Blog</h1>
+        {blogNodes && blogNodes.length > 0 && <BlogPreviewGrid nodes={blogNodes} />}
       </Container>
     </Layout>
   )
 }
 
-export default ArchivePage
+export default BlogPage
