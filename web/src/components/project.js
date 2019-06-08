@@ -6,11 +6,13 @@ import {imageUrlFor} from '../lib/image-url'
 import BlockContent from './block-content'
 import Container from './container'
 import RoleList from './role-list'
+import Masonry from 'react-masonry-component';
 
 import styles from './project.module.css'
 
 function Project (props) {
   const {_rawBody, title, categories, mainImage, members, publishedAt, relatedProjects, images} = props
+  
   return (
     <article className={styles.root}>
       {props.mainImage && mainImage.asset && (
